@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        // 1. Object.prototype.toString 判断数据类型
+        // 在判断数据类型时，我们称 Object.prototype.toString 为 "万能方法" "终极方法"，示例如下
+        const obj = {
+            name: 'jay',
+            age: 18,
+            id: null
+        }
+        console.log(Object.prototype.toString.call(obj.id).slice(8, -1));
+        // 2. typeof 
+        // console.log(typeof null)
+        // 3. instanceof a 是否为 B 的实例，a 的原型链上是否存在 B 的构造函数
+        // function Person(name) {
+        //     this.name = name
+        // }
+        // const p = new Person('lucas')
+
+        // console.log(p instanceof Person)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const offset = ele => {
+            let result = {
+                top: 0,
+                left: 0
+            }
+            // 如果当前浏览器为 IE11 以下的版本，则直接返回 {top: 0, left: 0}
+            if (!ele.getClientRects().length) {
+                return result
+            }
+
+            // 如果当前 DOM 节点满足 display === 'none'，则直接返回 {top: 0, left: 0}
+            if (window.getComputedStyle(ele)['display'] === 'none') {
+                return result
+            }
+
+            result = ele.getBoundingClientRect()
+            var docElement = ele.ownerDocument.documentElement
+
+            return {
+                top: result.top + window.pageYOffset - docElement.clientTop,
+                left: result.left + window.pageXOffset - docElement.clientLeft
+            }
+        }
+    </script>
+</body>
+</html>

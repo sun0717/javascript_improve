@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #man {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="man"></div>
+    <script>
+        const target = document.querySelectorAll('#man')[0]
+        target.style.cssText = `
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        `
+
+        const walk = (direction, distance, callback) => {
+            setTimeout(() => {
+                let currentLeft = parseInt(target.style.left, 10)
+                let currentTop = parseInt(target.style.top, 10)
+
+                const shouldFinish =  (direction === 'left' && currentLeft === -distance) 
+                    || (direction === 'top' && currentTop === -distance)
+                
+                if (shouldFinish) {
+                    // 任务执行结束，执行下一个回调
+                    callback && callback()
+                }
+                else {
+                    if (direction === 'left') {
+                        currentLeft--
+                        target.style.left = `${currentLeft}px`
+                    } else if (direction === 'top') {
+                        currentTop--
+                        target.style.top = `${currentTop}px`
+                    }
+
+                    walk(direction, distance, callback)
+                }
+            }, 20)
+        }
+
+        walk('left', 20, () => {
+            walk('top', 50, () => {
+                walk('left', 30, Function.prototype)
+            })
+        })
+    </script>
+</body>
+</html>

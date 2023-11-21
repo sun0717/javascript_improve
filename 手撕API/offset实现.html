@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>offset</title>
+  </head>
+  <body>
+    <script>
+      // 访问一个DOM节点上边框相对离其本身最近、且 postion 值为非 static 的祖先节点的垂直偏移量
+      const offset = (ele) => {
+        let result = {
+          top: 0,
+          left: 0,
+        };
+        
+        const getOffset = (node, init) => {
+          if (node.nodeType !== 1) {
+            return;
+          }
+
+          position = window.getComputedStyle(node)["position"];
+
+          if (typeof init === "undefined" && position === "static") {
+            getOffset(node.parentNode);
+            return;
+          }
+
+          result.top = node.offsetTop + result.Top - node.scrollTop;
+          result.left = node.offsetLeft + result.left - node.scrollLeft;
+
+          if (position === "fixed") {
+            return;
+          }
+
+          getOffset(node.parentNode);
+        };
+
+        if (window.getComputedStyle(ele)["display"] === "none") {
+          return result;
+        }
+
+        let position;
+
+        getOffset(ele, true);
+
+        return result;
+      };
+    </script>
+  </body>
+</html>
