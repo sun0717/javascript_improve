@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #man {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+      }
+      html {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        background-color: blanchedalmond;
+      "
+    >
+      <div id="man"></div>
+    </div>
+    <script>
+      const target = document.querySelectorAll("#man")[0];
+      target.style.cssText = `
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        `;
+
+      const walk = (direction, distance) => {
+        new Promise((resolve, reject) => {
+          const innerWalk = () => {
+            setTimeout(() => {
+              let currentLeft = parseInt(target.style.left, 10);
+              let currentTop = parseInt(target.style.top, 10);
+
+              const shouldFinish =
+                (direction === "left" && currentLeft === -distance) ||
+                (direction === "top" && currentTop === -distance);
+
+              if (shouldFinish) {
+                resolve();
+              } else {
+                if (direction === "left") {
+                  currentLeft--;
+                  target.style.left = `${currentLeft}px`;
+                } else if (direction === "top") {
+                  currentTop--;
+                  target.style.top = `${currentTop}px`;
+                }
+
+                innerWalk();
+              }
+            }, 20);
+          };
+          innerWalk();
+        });
+      };
+      /**
+       * async/await 是 Generator 语法糖
+       * 可以自动执行生成器函数
+       * 更方便实现异步流程
+       **/
+      const task = async function () {
+        await walk("left", 20);
+        await walk("top", 50);
+        await walk("left", 30);
+      };
+    </script>
+  </body>
+</html>
