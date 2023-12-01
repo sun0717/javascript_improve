@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垂直居中——居中元素已经定好宽高的情况</title>
+    <style>
+        .ws {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: yellowgreen;
+        }
+        /* .box {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            margin-left: -25px;
+            margin-top: -25px;
+            background-color: darkorchid;
+        } */
+        .box {
+            position: absolute;
+            /* 
+                top: 50%;
+                left: 50%;
+                margin-left: -25px;
+                margin-top: -25px; 
+            */
+            /* 
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;   
+            */
+            top: calc(50% - 25px);
+            left: calc(50% - 25px);
+        }
+        .fixedbox {
+            width: 50px;
+            height: 50px;
+            background-color: darkorchid;
+        }
+    </style>
+</head>
+<body>
+    <div class="ws">
+        <div class="box fixedbox">
+        </div>
+    </div>
+</body>
+</html>

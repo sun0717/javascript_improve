@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+    <style>
+        body {
+            width: 600px;
+            position: relative;
+        }
+
+        .left {
+            width: 80px;
+            height: 150px;
+            float: left;
+            background: blue;
+        }
+
+        .right {
+            height: 200px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. 内部的 box 将会独占宽度，且在垂直方向上一个接一个排列 -->
+    <!-- 2. box 在垂直方向上的间距由 margin 属性决定，但是同一个BFC的两个相邻box 的 margin 会出现边距折叠现象。 -->
+    <!-- 3. 每个 box 在水平方向上的左边缘与 BFC 的左边缘相对齐，即使存在浮动也是如此。 -->
+    <!-- 4. BFC区域不会与浮动元素重叠，而是会依次排列 -->
+    <!-- 5. BFC区域是一个独立的渲染容器，容器内的元素和BFC区域外的元素之间不会有任何干扰。 -->
+    <!-- 6. 浮动元素的高度也参与BFC的高度计算 -->
+    <!-- 总结：
+        - 边距折叠
+        - 清除浮动
+        - 自适应多栏布局 -->
+    <div class="left"></div>
+    <div class="right"></div>    
+</body>
+</html>
