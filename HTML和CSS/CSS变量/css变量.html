@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS变量</title>
+    <style>
+        :root {
+            --bg: white;
+            --text-color: #555;
+            --link-color: #639A67;
+            --link-hover: #205D67; 
+        }
+        body {
+            background: var(--bg);
+            color: var(--text-color);
+        }
+        a, a:link {
+            color: var(---link-color);
+        }
+        a:hover {
+            color: var(--link-hover);
+        }
+    </style>
+</head>
+<body>
+    <a href="#">click me to hhhhhh!</a>
+    <!-- css变量的兼容性"出乎意料"的好，
+        大部分移动端都已经可以使用CSS变量了
+        PC端的新版本浏览器基本也都已经支持 -->
+</body>
+</html>

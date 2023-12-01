@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主题切换</title>
+    <style>
+        :root {
+            --bg: white;
+            --text-color: #555;
+            --link-color: #639A67;
+            --link-hover: #205D67;
+        }
+
+        .pink-theme {
+            --bg: hotpink;
+            --text-color: white;
+            --link-color: #B793E6;
+            --link-hover: #3532A7;
+        }
+        body {
+            width: 300px;
+            height: 300px;
+            background-color: var(--bg);
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-theme">click me</div>
+    <script>
+        const toggleBtn = document.querySelector('.toggle-theme');
+
+        toggleBtn.addEventListener('click', e => {
+            e.preventDefault();
+
+            if (document.body.classList.contains('pink-theme')) {
+                // 当前主题为粉色主题，需要移除 pink-theme class
+                document.body.classList.remove('pink-theme')
+
+                toggle.innerText = '切换正常主题色'
+                localStorage.removeItem('pinkTheme')
+            } else {
+                document.body.classList.add('pink-theme')
+                toggle.innerText = '切换为粉色少女主题'
+                localStorage.setItem('pinkTheme', true)
+            }
+        })
+    </script>
+</body>
+</html>
