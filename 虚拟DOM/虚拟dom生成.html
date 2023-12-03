@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>虚拟dom生成</title>
+  </head>
+  <body>
+    <div id="chapterList">
+      <ul>
+        <li class="chapter">chapter1</li>
+        <li class="chapter">chapter2</li>
+        <li class="chapter">chapter3</li>
+      </ul>
+    </div>
+
+    <script>
+      // 对 DOM 节点进行属性设置
+      const setAttribute = (node, key, value) => {
+        switch (key) {
+          case "style":
+            node.style.cssText = value;
+            break;
+          case "value":
+            let tagName = node.tagName || "";
+            tagName = tagName.toLowerCase();
+            if (tagName === "input" || tagName === "textarea") {
+              node.value = value;
+            } else {
+              // 如果节点不是 input 或 textarea, 则使用 setAttribute 设置属性
+              node.setAttribute(key, value);
+            }
+            break;
+          default:
+            node.setAttribute(key, value);
+            break;
+        }
+      };
+
+      class Element {
+        constructor(tagName, attributes = {}, children = []) {
+          this.tagName = tagName;
+          this.attributes = attributes;
+          this.children = children;
+        }
+
+        render() {
+          let element = document.createElement(this.tagName);
+          let attributes = this.attributes;
+
+          for (let key in attributes) {
+            setAttribute(element, key, attributes[key]);
+          }
+
+          let children = this.children;
+
+          children.forEach(child => {
+            let childElement =
+              child instanceof Element
+                ? child.render()
+                : document.createTextNode(child);
+            element.appendChild(childElement);
+          });
+
+          return element;
+        } 
+      }
+
+      function element(tagName, attributes, children) {
+        return new Element(tagName, attributes, children);
+      }
+
+      const renderDom = (element, target) => {
+        target.appendChild(element);
+      };
+
+      // 虚拟dom
+      const chapterListVirtualDom = element("ul", { id: "list" }, [
+        element("li", { class: "chapter" }, ["chapter1"]),
+        element("li", { class: "chapter" }, ["chapter2"]),
+        element("li", { class: "chapter" }, ["chapter3"]),
+      ]);
+
+      const dom = chapterListVirtualDom.render();
+
+      renderDom(dom, document.body);
+    </script>
+  </body>
+</html>
