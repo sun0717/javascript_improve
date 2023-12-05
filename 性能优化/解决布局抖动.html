@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实战1-解决布局抖动</title>
+  </head>
+  <body>
+    <script>
+      // 布局抖动
+      // 布局抖动指DOM元素被JavaScript多次反复读写，导致文档多次无意义重排
+      // var h1 = element1.clientHeight;
+      // element1.style.height = (h1 * 2) + 'px';
+      // var h2 = element2.clientHeight;
+      // element2.style.height = (h2 * 2) + 'px';
+      // var h3 = element3.clientHeight;
+      // element3.style.height = (h3 * 2) + 'px';
+
+      // 事件委托
+      window.onload = () => {
+        const ul = document.querySelector("ul")[0];
+        const liList = document.getElementsByTagName("li");
+        
+        ul.onclick = e => {
+          const normalizeE = e || window.event;
+          const target = normalizeE.target || normalizeE.srcElement;
+
+          if (target.nodeName.toLowerCase() == "li") {
+            alert(target.innerHTML);
+          }
+        };
+      };
+    </script>
+  </body>
+</html>
